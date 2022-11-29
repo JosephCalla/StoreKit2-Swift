@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Watch.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
