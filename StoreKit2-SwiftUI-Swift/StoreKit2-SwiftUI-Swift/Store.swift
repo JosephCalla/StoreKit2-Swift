@@ -11,10 +11,11 @@ import SwiftUI
 class ViewModel: ObservableObject {
     @Published var products: [Product] = []
     @Published var purchasedIds: [String] = []
+    
     func fetchProducts() {
         async {
             do {
-                let products = try await Product.products(for: ["com.apple.watch_new"])
+                let products = try await Product.products(for: ["com.apple.watch_pro3"])
                 DispatchQueue.main.async {
                     self.products = products
                 }
@@ -31,10 +32,9 @@ class ViewModel: ObservableObject {
     
     func isPurchased(product: Product) async {
         guard let state = await product.currentEntitlement else { return }
-        guard let state = await product.currentEntitlement else { return }
+
         switch state {
         case .verified(let transaction):
-            print(transaction.productID)
             DispatchQueue.main.async {
                 self.purchasedIds.append(transaction.productID)
             }
@@ -54,7 +54,10 @@ class ViewModel: ObservableObject {
                 case .success(let verification):
                     switch verification {
                     case .verified(let trans):
-                        print(trans.productID)
+                        DispatchQueue.main.async {
+                            self.purchasedIds.append(trans.productID)
+                        }
+                        
                     case .unverified(_):
                         break
                     }

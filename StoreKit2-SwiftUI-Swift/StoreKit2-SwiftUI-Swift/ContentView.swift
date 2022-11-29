@@ -16,11 +16,11 @@ import StoreKit // StoreKit 2
 struct ContentView: View {
     @StateObject var viewModel = ViewModel()
     
-    
     var body: some View {
         VStack {
             Image(systemName: "applelogo")
                 .resizable()
+                .aspectRatio(contentMode: .fit)
                 .frame(width: 100, height: 100)
             
             Text("Apple Store")
@@ -35,6 +35,7 @@ struct ContentView: View {
             if let product = viewModel.products.first {
                 Text(product.displayName)
                 Text(product.description)
+                
                 Button {
                     if viewModel.purchasedIds.isEmpty {
                         viewModel.purchase()
